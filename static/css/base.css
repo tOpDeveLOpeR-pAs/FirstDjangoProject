@@ -1,0 +1,37 @@
+body {
+    background: #578277;
+    border: 0;
+    color: #45660a;
+    margin: 0 15%;
+}
+
+nav {
+    padding: 20px 40px;
+    background: #e2f75f;
+    font-size: 16pt;
+}
+
+a:active,
+a {
+    text-decoration: None;
+    color: #253819;
+}
+
+nav a:active,
+nav a {
+    margin: 0 10px;
+    color: #578277;
+}
+
+section {
+    padding: 50px 40px;
+    background: #4b8b7a;
+}
+
+.by_article_title {
+    color: #253819;
+}
+
+#user_nav {
+    margin-left: 100px;
+}

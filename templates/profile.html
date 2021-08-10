@@ -1,0 +1,10 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+    <h3>Мои статьи</h3>
+    {% for article in articles %}
+        <a href="{% url 'by_article' article.category_id article.pk %}">{{ article.title }}</a>
+        <h4>{{ article.author_id}} | {{ article.category_id }} | {{ article.published }}</h4>
+        <p>{{ article.text }}</p>
+    {% endfor %}
+{% endblock %}

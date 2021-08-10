@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %} Главная:: {{ article.title }} {% endblock %}
+
+{% block content %}
+    <h3 class="by_article_title">{{ article.title }}</h3>
+    <h4>{{ article.author_id }} {{ article.published }}</h4>
+    <p>{{ article.text }}</p><br>
+    <h4>Комментарии</h4>
+    <p>
+        {% for comment in comments %}
+            <h5>{{ comment.comment_author }} | {{ comment.published }}</h5>
+            <p>{{ comment.comment_text }}</p>
+        {% endfor %}
+    </p>
+    <br>
+    <h4>Добавить комментарий</h4>
+    <p>
+        <form action="{% url 'add_comment' article.category_id article.pk %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Добавить">
+    </form>
+    </p>
+
+{% endblock %}
