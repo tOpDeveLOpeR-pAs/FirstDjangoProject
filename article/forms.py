@@ -1,11 +1,4 @@
-from .models import Article, Comment
 from django import forms
-
-
-class ArticleForm(forms.ModelForm):
-    class Meta:
-        model = Article
-        fields = {'title', 'category_id', 'text'}
 
 
 class CommentForm(forms.Form):

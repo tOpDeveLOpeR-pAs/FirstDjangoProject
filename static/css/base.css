@@ -1,35 +1,40 @@
 body {
-    background: #578277;
+    background: #5DCFC3;
     border: 0;
-    color: #45660a;
+    color: #009E8E;
     margin: 0 15%;
 }
 
 nav {
     padding: 20px 40px;
-    background: #e2f75f;
+    background: #1533AD;
     font-size: 16pt;
+    border-width: 0 5px;
+    border-color: #14c7b8;
+    border-style: solid;
 }
 
 a:active,
 a {
     text-decoration: None;
-    color: #253819;
+    color: #5DCFC3;
 }
 
 nav a:active,
 nav a {
     margin: 0 10px;
-    color: #578277;
 }
 
 section {
     padding: 50px 40px;
-    background: #4b8b7a;
+    background: #00675C;
+    border-width: 5px 5px;
+    border-color: #14c7b8;
+    border-style: solid;
 }
 
 .by_article_title {
-    color: #253819;
+    color: #5DCFC3;
 }
 
 #user_nav {

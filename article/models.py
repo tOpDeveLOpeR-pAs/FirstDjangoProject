@@ -1,8 +1,8 @@
+from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User
-from django.db import models
-from django.urls import reverse
 from django.core import validators
+from django.urls import reverse
 
 
 # Основные классы | Категория статей | Статьи | Комментарии
@@ -21,11 +21,12 @@ class Article(models.Model):
     category_id = models.ForeignKey(Category, null=True, on_delete=models.PROTECT, verbose_name='Категория')
     author_id = models.ForeignKey(User, null=True, on_delete=models.CASCADE, verbose_name='Автор')
 
-    title = models.CharField(max_length=50, verbose_name='Заголовок')
-    published = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
-    text = models.TextField(verbose_name='Текст статьи', validators=[validators.MinLengthValidator(100),
-                                                                     validators.MaxLengthValidator(100000),
-                                                                     ])
+    title = models.CharField(max_length=100, blank=True, verbose_name='Заголовок')
+    published = models.DateTimeField(auto_now_add=True, blank=True, verbose_name='Дата публикации')
+    text = models.TextField(verbose_name='Текст статьи', blank=True,
+                            validators=[validators.MinLengthValidator(100),
+                                        validators.MaxLengthValidator(100000),
+                                        ])
 
     def get_absolute_url(self):
         return reverse('by_article', kwargs={'category_id': self.category_id, 'article_id': self.pk})
@@ -35,7 +36,7 @@ class Article(models.Model):
 
     @admin.display
     def short_text(self):
-        return self.text[:200] + ' ...'
+        return self.text[:400] + ' ...'
 
     class Meta:
         verbose_name = 'Статья'

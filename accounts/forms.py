@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django import forms
+from article.models import Article
 
 
 # вход пользователей
@@ -16,7 +17,17 @@ class LoginForm(forms.Form):
 
 
 # регистрация пользователей
-class UserRegistrationForm(ModelForm):
+class UserRegistrationForm(forms.Form):
+    username = forms.CharField(
+        label="Имя пользователя",
+        widget=forms.TextInput
+    )
+
+    email = forms.EmailField(
+        label="Почтовый ящик",
+        widget=forms.EmailInput
+    )
+
     password = forms.CharField(
         label="Пароль",
         widget=forms.PasswordInput
@@ -26,13 +37,15 @@ class UserRegistrationForm(ModelForm):
         widget=forms.PasswordInput
     )
 
-    class Meta:
-        model = User
-        fields = ['username', 'email']
-
     def clean_password2(self):
         cd = self.cleaned_data
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Пароли не совпадают.')
         return cd['password2']
+
+
+class ArticleForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = {'text', 'category_id', 'title'}
 
