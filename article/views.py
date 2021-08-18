@@ -1,9 +1,11 @@
 from django.contrib.auth import get_user
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
-from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
+from django.views.generic.edit import FormView
 from .models import *
 from .forms import CommentForm
 
@@ -68,6 +70,9 @@ def add_comment(request: HttpRequest, category_id: str, article_id: int) -> Http
         comment.save()
 
     return redirect(article.get_absolute_url())
+
+
+
 
 
 

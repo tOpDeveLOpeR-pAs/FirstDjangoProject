@@ -6,4 +6,3 @@ class CommentForm(forms.Form):
         label='Текст комментария',
         widget=forms.TextInput
     )
-

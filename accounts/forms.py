@@ -49,3 +49,4 @@ class ArticleForm(forms.ModelForm):
         model = Article
         fields = {'text', 'category_id', 'title'}
 
+

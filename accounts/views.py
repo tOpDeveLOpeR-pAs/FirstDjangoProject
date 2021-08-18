@@ -1,13 +1,11 @@
 from django.contrib.auth import authenticate, login, get_user
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpRequest, HttpResponse
-from article.models import Category, Article
+from article.models import Category
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
-from django.urls import reverse_lazy, reverse
-from .forms import ArticleForm, UserRegistrationForm, LoginForm
+from django.urls import reverse_lazy
+from .forms import *
 
 
 # профиль пользователя
@@ -48,9 +46,10 @@ def user_login(request: HttpRequest) -> HttpResponse:
 
 
 # выход пользователя
-def user_logout(request: HttpRequest) -> HttpResponse:
+class UserLogoutView(LogoutView):
     categories = Category.objects.all()
-    return render(request, 'registration/logged_out.html', {'categories': categories})
+    extra_context = {'categories': categories}
+    next_page = 'index'
 
 
 # регистрация пользователя
@@ -97,17 +96,39 @@ def add_article(request: HttpRequest) -> HttpResponse:
                                                    })
 
 
-class ArticleCreateView(LoginRequiredMixin, CreateView):
-    template_name = 'create_article.html'
-    form_class = ArticleForm
-    success_url = reverse_lazy('index')
+@login_required
+def update_article(request: HttpRequest, article_id: int) -> HttpResponse:
+    categories = Category.objects.all()
+    article = Article.objects.get(id=article_id)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        return context
+    if request.method == "POST":
+        article_form = ArticleForm(request.POST)
+        if article_form.is_valid():
+            article.category_id = article_form.cleaned_data['category_id']
+            article.title = article_form.cleaned_data['title']
+            article.text = article_form.cleaned_data['text']
 
-    def get_success_url(self):
-        form_kwargs = self.get_form_kwargs()
-        category_id = Category.objects.get(pk=form_kwargs['data']['category_id']).name
-        return reverse('by_category', kwargs={'category_id': category_id})
+            article.save()
+            return redirect('by_category', category_id=article.category_id)
+        else:
+            render(request, 'update_article.html', {'form': article_form,
+                                                    'categories': categories,
+                                                    })
+
+    article_form = ArticleForm(initial={'title': article.title,
+                                        'category_id': article.category_id,
+                                        'text': article.text
+                                        })
+    return render(request, 'update_article.html', {'form': article_form,
+                                                   'categories': categories
+                                                   })
+
+
+@login_required()
+def delete_article(request: HttpRequest, article_id: int) -> HttpResponse:
+    article = Article.objects.get(pk=article_id)
+    article.delete()
+    return redirect('profile')
+
+
+

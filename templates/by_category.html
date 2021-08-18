@@ -7,5 +7,6 @@
         <a href="{% url 'by_article' aa.category_id aa.pk %}">{{ aa.title }}</a>
         <h4>{{ aa.author_id }} | {{ aa.category_id }} | {{ aa.published }}</h4>
         <p>{{ aa.short_text }}</p>
+        <hr>
     {% endfor %}
 {% endblock %}

@@ -6,5 +6,12 @@
         <a href="{% url 'by_article' article.category_id article.pk %}">{{ article.title }}</a>
         <h4>{{ article.author_id}} | {{ article.category_id }} | {{ article.published }}</h4>
         <p>{{ article.text }}</p>
+        <form action="{% url 'update' article.pk %}">
+            <button>Редактировать</button>
+        </form>
+        <form action="{% url 'delete' article.pk %}">
+            <button>Удалить</button>
+        </form>
+        <hr>
     {% endfor %}
 {% endblock %}

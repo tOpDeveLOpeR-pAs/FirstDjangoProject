@@ -7,7 +7,7 @@ body {
 
 nav {
     padding: 20px 40px;
-    background: #1533AD;
+    background: #273e8b;
     font-size: 16pt;
     border-width: 0 5px;
     border-color: #14c7b8;
@@ -39,4 +39,15 @@ section {
 
 #user_nav {
     margin-left: 100px;
+}
+
+hr {
+    border-size: 2px 2px;
+    width: 100%;
+    border-color: #2b81ad;
+    border-style: solid;
+}
+
+form {
+    display: inline
 }
