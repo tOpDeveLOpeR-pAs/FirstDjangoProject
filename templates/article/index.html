@@ -7,6 +7,10 @@
         <a href="{% url 'by_article' article.category_id article.pk %}">{{ article.title }}</a>
         <h4>{{ article.author_id}} | {{ article.category_id }} | {{ article.published }}</h4>
         <p>{{ article.short_text }}</p>
-        <hr>
+        {% if not forloop.last %}
+            <hr>
+        {% endif %}
+    {% empty %}
+        <h3>К сожалению на данный момент список статей пуст.</h3>
     {% endfor %}
 {% endblock %}

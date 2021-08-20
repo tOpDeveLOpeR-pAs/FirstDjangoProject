@@ -18,6 +18,8 @@
         {% for comment in comments %}
             <h5>{{ comment.comment_author }} | {{ comment.published }}</h5>
             <p>{{ comment.comment_text }}</p>
+        {% empty %}
+            <h5>Комментарии по данной статье отсутствуют.</h5>
         {% endfor %}
     </p>
     <br>

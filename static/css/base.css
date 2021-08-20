@@ -6,23 +6,21 @@ body {
 }
 
 nav {
-    padding: 20px 40px;
-    background: #273e8b;
+    background: linear-gradient(45deg, #273e8b, #6b3798);
     font-size: 16pt;
     border-width: 0 5px;
     border-color: #14c7b8;
     border-style: solid;
 }
 
-a:active,
+section a:active,
+section a:hover {
+    color: #5beee1;
+}
+
 a {
     text-decoration: None;
     color: #5DCFC3;
-}
-
-nav a:active,
-nav a {
-    margin: 0 10px;
 }
 
 section {
@@ -42,7 +40,6 @@ section {
 }
 
 hr {
-    border-size: 2px 2px;
     width: 100%;
     border-color: #2b81ad;
     border-style: solid;
@@ -50,4 +47,76 @@ hr {
 
 form {
     display: inline
+}
+
+/*  Navigation */
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+	display: inline-table;
+    height: 70px;
+    width: 100%;
+}
+
+nav li {
+    padding: 20px 0;
+    position: relative;
+    display: inline;
+    border-bottom: 0;
+    border-top: 0;
+    float: left;
+}
+
+
+nav li a {
+    padding: 20px 20px;
+    margin: 0;
+}
+
+nav ul ul {
+    top: 64px;
+	display: none;
+    position: absolute;
+    background: #273e8b;
+    padding: 0;
+}
+
+nav li:hover {
+    background: #410e94;
+}
+nav ul li:hover > ul {
+    display: block;
+}
+
+nav ul ul li {
+    float: none;
+    position: relative;
+    display: block;
+    background: #273e8b;
+    width: 160px;
+}
+nav ul ul li a {
+	padding: 15px 30px;
+    text-align: center;
+}
+
+#pos-right {
+    float: right;
+}
+
+
+/* Clearfix */
+
+.clearfix {
+    zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
 }

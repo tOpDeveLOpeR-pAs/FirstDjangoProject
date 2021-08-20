@@ -1,10 +1,10 @@
 {%  extends 'base.html' %}
 
 {% block content %}
-    <h3>Мои статьи</h3>
+    <h3>Мои статьи | {{ articles.count }}</h3>
     {% for article in articles %}
         <a href="{% url 'by_article' article.category_id article.pk %}">{{ article.title }}</a>
-        <h4>{{ article.author_id}} | {{ article.category_id }} | {{ article.published }}</h4>
+        <h4>{{ forloop.revcounter }} | {{ article.category_id }} | {{ article.published }}</h4>
         <p>{{ article.text }}</p>
         <form action="{% url 'update' article.pk %}">
             <button>Редактировать</button>
@@ -12,6 +12,10 @@
         <form action="{% url 'delete' article.pk %}">
             <button>Удалить</button>
         </form>
-        <hr>
+        {% if not forloop.last %}
+            <hr>
+        {% endif %}
+    {% empty %}
+        <h4>К сожалению список ваших статей на данный момент пуст.</h4>
     {% endfor %}
 {% endblock %}

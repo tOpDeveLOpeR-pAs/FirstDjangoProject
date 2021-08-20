@@ -14,7 +14,6 @@ class IndexListView(ListView):
     template_name = 'article/index.html'
     context_object_name = 'articles'
     ordering = '-published'
-    paginate_by = 5
 
     def get_queryset(self):
         return Article.objects.all()
