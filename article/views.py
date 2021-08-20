@@ -11,7 +11,7 @@ from .forms import CommentForm
 
 
 class IndexListView(ListView):
-    template_name = 'index.html'
+    template_name = 'article/index.html'
     context_object_name = 'articles'
     ordering = '-published'
     paginate_by = 5
@@ -28,7 +28,7 @@ class IndexListView(ListView):
 
 class ArticleDetailView(DetailView):
     model = Article
-    template_name = 'by_article.html'
+    template_name = 'article/by_article.html'
 
     def get_object(self, queryset=None):
         return self.model.objects.get(pk=self.kwargs['article_id'])
@@ -43,7 +43,7 @@ class ArticleDetailView(DetailView):
 
 
 class CategoryListView(ListView):
-    template_name = 'by_category.html'
+    template_name = 'article/by_category.html'
     context_object_name = 'articles'
 
     def get_queryset(self):

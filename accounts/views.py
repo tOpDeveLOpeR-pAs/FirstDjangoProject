@@ -14,10 +14,10 @@ def user_profile(request: HttpRequest) -> HttpResponse:
     categories = Category.objects.all()
     user = User.objects.get(username=request.user.username)
     user_articles = Article.objects.filter(author_id__username=user.username)
-    return render(request, 'profile.html', {'user': user,
-                                            'categories': categories,
-                                            'articles': user_articles
-                                            })
+    return render(request, 'accounts/profile.html', {'user': user,
+                                                     'categories': categories,
+                                                     'articles': user_articles
+                                                     })
 
 
 # вход пользователя
@@ -87,13 +87,13 @@ def add_article(request: HttpRequest) -> HttpResponse:
             article.save()
             return redirect('by_category', category_id=article.category_id)
         else:
-            render(request, 'create_article.html', {'form': article_form,
-                                                    'categories': categories
-                                                    })
+            render(request, 'accounts/create_article.html', {'form': article_form,
+                                                             'categories': categories
+                                                             })
     article_form = ArticleForm()
-    return render(request, 'create_article.html', {'form': article_form,
-                                                   'categories': categories
-                                                   })
+    return render(request, 'accounts/create_article.html', {'form': article_form,
+                                                            'categories': categories
+                                                            })
 
 
 @login_required
@@ -111,17 +111,17 @@ def update_article(request: HttpRequest, article_id: int) -> HttpResponse:
             article.save()
             return redirect('by_category', category_id=article.category_id)
         else:
-            render(request, 'update_article.html', {'form': article_form,
-                                                    'categories': categories,
-                                                    })
+            render(request, 'accounts/update_article.html', {'form': article_form,
+                                                             'categories': categories,
+                                                             })
 
     article_form = ArticleForm(initial={'title': article.title,
                                         'category_id': article.category_id,
                                         'text': article.text
                                         })
-    return render(request, 'update_article.html', {'form': article_form,
-                                                   'categories': categories
-                                                   })
+    return render(request, 'accounts/update_article.html', {'form': article_form,
+                                                            'categories': categories
+                                                            })
 
 
 @login_required()
