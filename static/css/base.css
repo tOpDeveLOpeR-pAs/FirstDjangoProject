@@ -1,9 +1,9 @@
 /* Main style */
 
 body {
-    background: #5DCFC3;
+    background: linear-gradient(45deg, #54b7b5, #0e7094);
     border: 0;
-    color: #009E8E;
+    color: #efe6f9;
     margin: 0 13%;
 }
 
@@ -23,17 +23,17 @@ body {
 
 section a:active,
 section a:hover {
-    color: #5beee1;
+    color: #57eae5;
 }
 
 a {
     text-decoration: None;
-    color: #5DCFC3;
+    color: #9998f1;
 }
 
 section {
     padding: 50px 40px;
-    background: #00675C;
+    background: linear-gradient(45deg, #23546f, #732aa2, #127f73);
     border-width: 5px 5px;
     border-color: #14c7b8;
     border-style: solid;
@@ -126,7 +126,7 @@ nav ul ul li a {
 .pagination {
     text-align: right;
     margin-right: 40px;
-    color: #5DCFC3;
+    color: #9998f1;
 }
 
 .pagination:active,
