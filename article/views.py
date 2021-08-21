@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormView
@@ -14,6 +15,7 @@ class IndexListView(ListView):
     template_name = 'article/index.html'
     context_object_name = 'articles'
     ordering = '-published'
+    paginate_by = 4
 
     def get_queryset(self):
         return Article.objects.all()
@@ -21,7 +23,6 @@ class IndexListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
-
         return context
 
 
@@ -44,6 +45,7 @@ class ArticleDetailView(DetailView):
 class CategoryListView(ListView):
     template_name = 'article/by_category.html'
     context_object_name = 'articles'
+    paginate_by = 4
 
     def get_queryset(self):
         return Article.objects.filter(category_id__name=self.kwargs['category_id'])

@@ -4,7 +4,7 @@
 
 {% block content %}
     {% for aa in articles %}
-        <a href="{% url 'by_article' aa.category_id aa.pk %}">{{ aa.title }}</a>
+        <a href="{% url 'by_article' aa.category_id aa.pk %}">{{ aa.title|upper }}</a>
         <h4>{{ aa.author_id }} | {{ aa.category_id }} | {{ aa.published }}</h4>
         <p>{{ aa.short_text }}</p>
         {% if not forloop.last %}
@@ -13,4 +13,18 @@
     {% empty %}
         <h3>К сожалению на данный момент список статей в этой категории пуст.</h3>
     {% endfor %}
+{% endblock %}
+
+{% block paginate %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+            &nbsp; &nbsp; | &nbsp; &nbsp;
+        {% endif %}
+        Часть № {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        {% if page_obj.has_next %}
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="?page={{ page_obj.next_page_number }}">&gt</a>
+        {% endif %}
+    </div>
 {% endblock %}

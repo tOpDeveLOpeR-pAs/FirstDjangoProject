@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, get_user
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
+from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 from article.models import Category
 from django.shortcuts import render, redirect
@@ -14,9 +15,18 @@ def user_profile(request: HttpRequest) -> HttpResponse:
     categories = Category.objects.all()
     user = User.objects.get(username=request.user.username)
     user_articles = Article.objects.filter(author_id__username=user.username)
+
+    paginator = Paginator(user_articles, 4)
+    if 'page' in request.GET:
+        page_num = request.GET['page']
+    else:
+        page_num = 1
+    page = paginator.get_page(page_num)
+
     return render(request, 'accounts/profile.html', {'user': user,
+                                                     'page': page,
                                                      'categories': categories,
-                                                     'articles': user_articles
+                                                     'articles': page.object_list
                                                      })
 
 

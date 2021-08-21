@@ -3,15 +3,17 @@
 {% block title %} Главная:: {{ article.title }} {% endblock %}
 
 {% block content %}
-    <h3 class="by_article_title">{{ article.title }}</h3>
+    <h3 class="by_article_title">{{ article.title|upper }}</h3>
     <h4>{{ article.author_id }} {{ article.published }}</h4>
     <p>{{ article.text }}</p><br>
-    <form action="{% url 'update' article.pk %}">
-        <button>Редактировать</button>
-    </form>
-    <form action="{% url 'delete' article.pk %}">
-        <button>Удалить</button>
-    </form>
+    {% if user.is_authenticated %}
+        <form action="{% url 'update' article.pk %}">
+            <button>Редактировать</button>
+        </form>
+        <form action="{% url 'delete' article.pk %}">
+            <button>Удалить</button>
+        </form>
+    {% endif %}
     <br>
     <h4>Комментарии</h4>
     <p>

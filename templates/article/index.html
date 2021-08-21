@@ -3,8 +3,8 @@
 {% block title %}Главная{% endblock %}
 
 {% block content %}
-    {% for article in articles %}
-        <a href="{% url 'by_article' article.category_id article.pk %}">{{ article.title }}</a>
+    {% for article in page_obj %}
+        <a href="{% url 'by_article' article.category_id article.pk %}">{{ article.title|upper }}</a>
         <h4>{{ article.author_id}} | {{ article.category_id }} | {{ article.published }}</h4>
         <p>{{ article.short_text }}</p>
         {% if not forloop.last %}
@@ -13,4 +13,18 @@
     {% empty %}
         <h3>К сожалению на данный момент список статей пуст.</h3>
     {% endfor %}
+{% endblock %}
+
+{% block paginate %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+            &nbsp; &nbsp; | &nbsp; &nbsp;
+        {% endif %}
+        Часть № {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        {% if page_obj.has_next %}
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="?page={{ page_obj.next_page_number }}">&gt</a>
+        {% endif %}
+    </div>
 {% endblock %}

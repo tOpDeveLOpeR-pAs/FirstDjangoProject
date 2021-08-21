@@ -1,16 +1,24 @@
+/* Main style */
+
 body {
     background: #5DCFC3;
     border: 0;
     color: #009E8E;
-    margin: 0 15%;
+    margin: 0 13%;
 }
 
-nav {
-    background: linear-gradient(45deg, #273e8b, #6b3798);
-    font-size: 16pt;
-    border-width: 0 5px;
-    border-color: #14c7b8;
-    border-style: solid;
+/* Clearfix */
+
+.clearfix {
+    zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
 }
 
 section a:active,
@@ -50,6 +58,14 @@ form {
 }
 
 /*  Navigation */
+
+nav {
+    background: linear-gradient(45deg, #273e8b, #732aa2, #89347f);
+    font-size: 16pt;
+    border-width: 0 5px;
+    border-color: #14c7b8;
+    border-style: solid;
+}
 
 nav ul {
     margin: 0;
@@ -106,17 +122,15 @@ nav ul ul li a {
     float: right;
 }
 
+/* Paginator */
+.pagination {
+    text-align: right;
+    margin-right: 40px;
+    color: #5DCFC3;
+}
 
-/* Clearfix */
+.pagination:active,
+.pagination:hover {
+    color: #5beee1;
+}
 
-.clearfix {
-    zoom: 1;
-}
-.clearfix:before,
-.clearfix:after {
-    content: "";
-    display: table;
-}
-.clearfix:after {
-    clear: both;
-}
