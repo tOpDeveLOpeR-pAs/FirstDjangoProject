@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django import forms
-from article.models import Article
+from article.models import Article, Category
 
 
 # вход пользователей
@@ -47,6 +47,6 @@ class UserRegistrationForm(forms.Form):
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = {'text', 'category_id', 'title'}
+        fields = {'title', 'category_id', 'text'}
 
 

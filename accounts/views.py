@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, get_user
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 from article.models import Category
@@ -55,6 +55,13 @@ def user_login(request: HttpRequest) -> HttpResponse:
                                                        })
 
 
+# смена пароля
+class UserPasswordChangeView(PasswordChangeView):
+    template_name = 'accounts/password_change.html'
+    success_url = reverse_lazy('profile')
+    extra_context = {'categories': Category.objects.all()}
+
+
 # выход пользователя
 class UserLogoutView(LogoutView):
     categories = Category.objects.all()
@@ -81,7 +88,7 @@ def register(request: HttpRequest) -> HttpResponse:
                                                           })
 
 
-# добавление статьи
+# добавление | редактирование | удаление  статьи
 @login_required
 def add_article(request: HttpRequest) -> HttpResponse:
     categories = Category.objects.all()
@@ -112,23 +119,17 @@ def update_article(request: HttpRequest, article_id: int) -> HttpResponse:
     article = Article.objects.get(id=article_id)
 
     if request.method == "POST":
-        article_form = ArticleForm(request.POST)
+        article_form = ArticleForm(request.POST, instance=article)
         if article_form.is_valid():
-            article.category_id = article_form.cleaned_data['category_id']
-            article.title = article_form.cleaned_data['title']
-            article.text = article_form.cleaned_data['text']
-
-            article.save()
+            if article_form.has_changed():
+                article.save()
             return redirect('by_category', category_id=article.category_id)
         else:
             render(request, 'accounts/update_article.html', {'form': article_form,
                                                              'categories': categories,
                                                              })
 
-    article_form = ArticleForm(initial={'title': article.title,
-                                        'category_id': article.category_id,
-                                        'text': article.text
-                                        })
+    article_form = ArticleForm(instance=article)
     return render(request, 'accounts/update_article.html', {'form': article_form,
                                                             'categories': categories
                                                             })

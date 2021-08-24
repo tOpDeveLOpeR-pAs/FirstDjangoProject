@@ -97,6 +97,7 @@ nav ul ul {
     position: absolute;
     background: #273e8b;
     padding: 0;
+    width: 220px;
 }
 
 nav li:hover {
@@ -111,7 +112,6 @@ nav ul ul li {
     position: relative;
     display: block;
     background: #273e8b;
-    width: 160px;
 }
 nav ul ul li a {
 	padding: 15px 30px;

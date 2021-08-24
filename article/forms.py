@@ -1,4 +1,5 @@
 from django import forms
+from .models import Comment
 
 
 class CommentForm(forms.Form):
@@ -6,3 +7,4 @@ class CommentForm(forms.Form):
         label='Текст комментария',
         widget=forms.TextInput
     )
+

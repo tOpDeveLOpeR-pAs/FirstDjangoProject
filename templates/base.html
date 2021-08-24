@@ -28,9 +28,11 @@
         {% endif %}
         {% if user.is_authenticated %}
             <li id="pos-right" style="margin-right: 50px"><a href="{% url 'logout' %}">Выход</a></li>
-            <li id="pos-right"><a href="{% url 'add' %}">Добавить статью</a></li>
-            <li id="pos-right">
-                <a href="{% url 'profile' %}">{{ user.username }} | Мои статьи  </a>
+            <li id="pos-right"><a href="{% url 'profile' %}">{{ user.username }} | Мои статьи  </a>
+                <ul>
+                    <li><a href="{% url 'add' %}">Добавить статью</a></li>
+                    <li><a href="{% url 'change_password' %}">Сменить пароль</a></li>
+                </ul>
             </li>
         {% endif %}
         </ul>
